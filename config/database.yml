@@ -23,3 +23,21 @@ production:
     adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # The Solid gems eager-load connections for these names. We run cache/jobs/
+  # cable in-process, so point them at the same DB and skip migration tasks;
+  # their tables are never actually queried.
+  cache:
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database_tasks: false
+  queue:
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database_tasks: false
+  cable:
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database_tasks: false
