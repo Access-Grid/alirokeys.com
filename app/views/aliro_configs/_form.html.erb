@@ -15,9 +15,12 @@
   </div>
 
   <div>
-    <%= f.label :domain_name, "Domain", class: "label" %>
-    <%= f.text_field :domain_name, value: config.domain_name, class: "input mt-1", placeholder: "allegion.com" %>
-    <p class="hint">Where this config is published, e.g. <code>allegion.com</code>.</p>
+    <span class="label">Domain</span>
+    <div class="input mt-1 flex items-center gap-2 bg-slate-50 text-slate-600">
+      <span class="font-mono"><%= config.domain_name %></span>
+      <span class="badge-neutral">from your account</span>
+    </div>
+    <p class="hint">Configs are published under your account's domain.</p>
   </div>
 
   <div>

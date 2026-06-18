@@ -19,6 +19,14 @@ class AliroConfigsFlowTest < ActionDispatch::IntegrationTest
     assert_equal "acme.dev", AliroConfig.last.domain.name
   end
 
+  test "domain is derived from the creator's email and a submitted domain is ignored" do
+    # alice is alice@acme.dev — the submitted domain_name must not be honored
+    post aliro_configs_path, params: { aliro_config: {
+      name: "Door", domain_name: "evil.example.com", reader_group_id: GID, reader_public_key: PUB } }
+    assert_redirected_to dashboard_path
+    assert_equal "acme.dev", AliroConfig.last.domain.name
+  end
+
   test "invalid key material re-renders the form with errors" do
     assert_no_difference "AliroConfig.count" do
       post aliro_configs_path, params: { aliro_config: {

@@ -38,8 +38,9 @@ class AliroConfigsController < ApplicationController
   end
 
   def config_params
+    # domain is derived from the creator's email domain, never user-supplied.
     params.require(:aliro_config).permit(
-      :name, :domain_name, :reader_group_id, :reader_public_key, :reader_certificate, :is_sample
+      :name, :reader_group_id, :reader_public_key, :reader_certificate, :is_sample
     )
   end
 end

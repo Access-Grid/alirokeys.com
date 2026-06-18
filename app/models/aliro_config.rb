@@ -16,8 +16,9 @@ class AliroConfig < ApplicationRecord
   scope :samples, -> { where(is_sample: true) }
 
   # Presentation interface (shared with views / CodeExporter). Stored as hex.
+  # Derived from the creator's email domain unless explicitly set.
   def domain_name
-    @domain_name&.strip&.downcase.presence || domain&.name
+    @domain_name&.strip&.downcase.presence || domain&.name || created_by&.email_domain
   end
 
   def cert? = reader_certificate.present?
