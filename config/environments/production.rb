@@ -55,7 +55,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Host used by links generated in mailer templates (magic links).
-  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "aliro-keys.herokuapp.com") }
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "www.alirokeys.com") }
 
   # Deliver transactional email (magic links) via Postmark.
   config.action_mailer.delivery_method = :postmark
