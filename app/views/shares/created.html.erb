@@ -1,0 +1,41 @@
+<% content_for :title, "Share created — alirokeys" %>
+<div class="page-narrow">
+  <div class="card-pad">
+    <div class="flex items-center gap-3">
+      <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600"><%= icon(:fire, classes: "h-5 w-5") %></span>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-slate-900">One-time share created</h1>
+        <p class="text-sm text-slate-500">for <span class="font-medium text-slate-700"><%= @config&.name %></span></p>
+      </div>
+    </div>
+
+    <div class="mt-6 space-y-5">
+      <div>
+        <p class="label">Share link</p>
+        <div class="mt-1 flex items-start gap-2">
+          <code class="keyblock flex-1"><%= share_url(@token) %></code>
+          <%= render "shared/copy_button", value: share_url(@token) %>
+        </div>
+      </div>
+
+      <div data-controller="reveal">
+        <p class="label">Secret <span class="font-normal text-slate-400">— shown only once</span></p>
+        <div class="mt-1 flex items-start gap-2">
+          <code class="keyblock flex-1 blur-sm select-none" data-reveal-target="content"><%= @secret %></code>
+          <button type="button" class="btn-secondary btn-sm" data-action="reveal#toggle"><span data-reveal-target="label">Reveal</span></button>
+          <%= render "shared/copy_button", value: @secret %>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-inset ring-amber-600/20">
+      Send the link and the secret over <span class="font-semibold">separate channels</span>. The config is
+      destroyed the instant it’s retrieved, and the secret can’t be recovered afterward.
+    </div>
+
+    <div class="mt-6 flex gap-2">
+      <%= link_to "Open the link →", share_path(@token), class: "btn-primary" %>
+      <%= link_to "Back to my configs", dashboard_path, class: "btn-ghost" %>
+    </div>
+  </div>
+</div>

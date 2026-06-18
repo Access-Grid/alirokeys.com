@@ -1,0 +1,28 @@
+<%# locals: config %>
+<div class="card-pad" data-controller="tabs">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h3 class="text-sm font-semibold text-slate-900">Export as source</h3>
+      <p class="hint">Drop the whole config straight into your project.</p>
+    </div>
+    <div class="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-1">
+      <% export_langs.each_with_index do |lang, i| %>
+        <button type="button" class="tab" data-tabs-target="tab"
+                data-action="tabs#select" data-tabs-index-param="<%= i %>"><%= lang[:label] %></button>
+      <% end %>
+    </div>
+  </div>
+
+  <% export_langs.each_with_index do |lang, i| %>
+    <% code = code_export(config, lang[:key]) %>
+    <div data-tabs-target="panel" <%= "hidden" if i.positive? %>>
+      <div class="mb-2 flex justify-end gap-2">
+        <%= render "shared/copy_button", value: code %>
+        <%= link_to config_export_path(config.domain, config, format: lang[:ext]), class: "btn-secondary btn-sm" do %>
+          <%= download_icon %> .<%= lang[:ext] %>
+        <% end %>
+      </div>
+      <pre class="keyblock overflow-x-auto"><%= code %></pre>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+<%# locals: field (label), hex (hex string) %>
+<% encodings = field_encodings(hex) %>
+<div class="card-pad" data-controller="tabs">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h3 class="text-sm font-semibold text-slate-900"><%= field %></h3>
+      <p class="hint"><%= hex.length / 2 %> bytes</p>
+    </div>
+    <div class="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-1">
+      <% encodings.keys.each_with_index do |label, i| %>
+        <button type="button" class="tab" data-tabs-target="tab"
+                data-action="tabs#select" data-tabs-index-param="<%= i %>"><%= label %></button>
+      <% end %>
+    </div>
+  </div>
+
+  <% encodings.values.each_with_index do |value, i| %>
+    <div data-tabs-target="panel" <%= "hidden" if i.positive? %>>
+      <div class="flex items-start gap-2">
+        <code class="keyline flex-1"><%= value %></code>
+        <%= render "shared/copy_button", value: value %>
+      </div>
+    </div>
+  <% end %>
+</div>

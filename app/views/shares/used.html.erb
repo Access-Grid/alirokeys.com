@@ -1,0 +1,14 @@
+<% content_for :title, "Link unavailable — alirokeys" %>
+<div class="page-narrow">
+  <div class="card-pad text-center">
+    <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-500"><%= icon(:fire, classes: "h-6 w-6") %></span>
+    <h1 class="mt-4 text-2xl font-bold tracking-tight text-slate-900">This link is no longer available</h1>
+    <p class="mt-2 text-sm text-slate-600">
+      One-time links open exactly once. This config has already been retrieved and permanently destroyed,
+      or the link has expired.
+    </p>
+    <div class="mt-6">
+      <%= link_to "Go home", root_path, class: "btn-secondary btn-sm" %>
+    </div>
+  </div>
+</div>

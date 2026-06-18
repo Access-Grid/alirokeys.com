@@ -1,0 +1,9 @@
+<% flash.each do |type, message| %>
+  <% styles = { "notice" => "bg-emerald-50 text-emerald-800 ring-emerald-600/20",
+                "alert"  => "bg-red-50 text-red-800 ring-red-600/20" } %>
+  <div class="page mb-6">
+    <div class="rounded-lg px-4 py-3 text-sm font-medium ring-1 ring-inset <%= styles[type] || styles['notice'] %>">
+      <%= message %>
+    </div>
+  </div>
+<% end %>

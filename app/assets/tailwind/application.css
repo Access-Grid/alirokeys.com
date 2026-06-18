@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   alirokeys.com design system
+   A clean, technical aesthetic for a developer/security tool: slate neutrals,
+   an indigo brand, emerald for success/copy confirmation, monospace for all
+   key material.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-brand-50: #eff5ff;
+  --color-brand-100: #dbe8fe;
+  --color-brand-200: #bfd7fe;
+  --color-brand-300: #93bbfd;
+  --color-brand-400: #609afa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Spline Sans Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+  a {
+    @apply text-brand-600 hover:text-brand-700;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  /* Layout */
+  .page {
+    @apply mx-auto w-full max-w-5xl px-5;
+  }
+  .page-narrow {
+    @apply mx-auto w-full max-w-xl px-5;
+  }
+
+  /* Buttons — shared base across all variants, then per-variant color */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost,
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5
+      text-sm font-semibold transition focus:outline-none focus-visible:ring-2
+      focus-visible:ring-brand-500 focus-visible:ring-offset-2
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply text-white shadow-sm;
+    background-image: linear-gradient(to bottom, var(--color-brand-500), var(--color-brand-700));
+  }
+  .btn-primary:hover {
+    background-image: linear-gradient(to bottom, var(--color-brand-600), var(--color-brand-800));
+  }
+  .btn-secondary {
+    @apply border border-slate-300 bg-white text-slate-700 shadow-sm hover:bg-slate-50;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100;
+  }
+  .btn-danger {
+    @apply border border-red-200 bg-white text-red-700 shadow-sm hover:bg-red-50;
+  }
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+
+  /* Cards */
+  .card,
+  .card-pad {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+  }
+  .card-pad {
+    @apply p-6;
+  }
+
+  /* Badges — shared base, then per-variant color */
+  .badge,
+  .badge-sample,
+  .badge-private,
+  .badge-neutral {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .badge-sample {
+    @apply bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20;
+  }
+  .badge-private {
+    @apply bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-500/20;
+  }
+  .badge-neutral {
+    @apply bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/20;
+  }
+
+  /* Forms */
+  .label {
+    @apply block text-sm font-medium text-slate-700;
+  }
+  .hint {
+    @apply mt-1 text-xs text-slate-500;
+  }
+  .input,
+  .input-mono {
+    @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5
+      text-sm text-slate-900 placeholder:text-slate-400 shadow-sm
+      focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
+  }
+  .input-mono {
+    @apply font-mono text-xs leading-relaxed;
+  }
+  .input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500;
+  }
+  .field-error {
+    @apply mt-1 text-xs font-medium text-red-600;
+  }
+
+  /* Key material display */
+  .keyblock {
+    @apply break-all rounded-lg border border-slate-200 bg-slate-50 px-3 py-2
+      font-mono text-xs leading-relaxed text-slate-800;
+  }
+  /* Single-line, truncated key value (no wrapping) */
+  .keyline {
+    @apply min-w-0 truncate rounded-lg border border-slate-200 bg-slate-50 px-3 py-2
+      font-mono text-xs leading-relaxed text-slate-800;
+  }
+
+  /* Tabs (encoding / language switchers) */
+  .tab {
+    @apply cursor-pointer rounded-md px-2.5 py-1 text-xs font-medium text-slate-500
+      hover:text-slate-800;
+  }
+  .tab-active {
+    @apply bg-white text-brand-700 shadow-sm ring-1 ring-slate-200;
+  }
+
+  /* Tables */
+  .table-row {
+    @apply flex items-center justify-between gap-4 border-b border-slate-100 py-3 last:border-0;
+  }
+}

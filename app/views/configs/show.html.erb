@@ -1,0 +1,32 @@
+<% content_for :title, "#{@config.name} · #{@config.domain} — alirokeys" %>
+<div class="page">
+  <div class="mx-auto max-w-3xl">
+    <nav class="flex items-center gap-2 text-sm text-slate-500">
+      <%= link_to @config.domain, domain_profile_path(@config.domain), class: "font-medium" %>
+      <span class="text-slate-300">/</span>
+      <span class="text-slate-700"><%= @config.name %></span>
+    </nav>
+
+    <header class="mt-3 flex flex-wrap items-start justify-between gap-3 border-b border-slate-200 pb-6">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900"><%= @config.name %></h1>
+        <div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-500">
+          <span class="badge-sample">sample</span>
+          <span><%= @config.created_at %></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <%= "+ certificate" if @config.cert? %>
+      </div>
+    </header>
+
+    <div class="mt-6 space-y-4">
+      <%= render "configs/key_field", field: "Reader group ID", hex: @config.reader_group_id %>
+      <%= render "configs/key_field", field: "Reader public key", hex: @config.reader_public_key %>
+      <% if @config.cert? %>
+        <%= render "configs/key_field", field: "Reader certificate", hex: @config.reader_certificate %>
+      <% end %>
+      <%= render "configs/export", config: @config %>
+    </div>
+  </div>
+</div>

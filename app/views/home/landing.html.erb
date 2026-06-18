@@ -1,0 +1,39 @@
+<%# Hero %>
+<section class="page">
+  <div class="mx-auto max-w-4xl text-center">
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+      Publish, discover &amp; hand off<br class="hidden sm:block"> Aliro reader configs.
+    </h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-slate-600">
+      A directory for Aliro reader group IDs, public keys and certificates — with
+      validated key material, copy-ready exports in any language, and burn-on-read
+      one-time share links.
+    </p>
+
+    <%= form_with url: root_path, method: :get, class: "mx-auto mt-8 flex max-w-xl items-center gap-2" do %>
+      <div class="relative flex-1">
+        <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400"><%= icon(:search) %></span>
+        <%= text_field_tag :q, @q, placeholder: "Look up a domain, e.g. allegion.com", class: "input pl-10", autofocus: true %>
+      </div>
+      <%= submit_tag "Look up", class: "btn-primary border border-blue-900 shadow hover:shadow-md hover:cursor-pointer" %>
+    <% end %>
+  </div>
+</section>
+
+<%# How it works %>
+<section id="how" class="page mt-20">
+  <h2 class="text-center text-lg font-semibold text-slate-900">How it works</h2>
+  <div class="mt-8 grid gap-6 sm:grid-cols-3">
+    <% [
+      [:shield, "Sign in with your work email", "Magic-link login, no passwords. Only organization emails — so access ends when employment does."],
+      [:key, "Publish validated configs", "Paste a 16-byte reader group ID and a P-256 public key (hex or base64). We validate it’s real and on-curve."],
+      [:fire, "Share once, then it burns", "Mint a one-time link gated by a secret. After it’s retrieved, the config is destroyed."]
+    ].each do |ico, title, body| %>
+      <div class="card-pad">
+        <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600"><%= icon(ico, classes: "h-5 w-5") %></span>
+        <h3 class="mt-4 font-semibold text-slate-900"><%= title %></h3>
+        <p class="mt-1.5 text-sm text-slate-600"><%= body %></p>
+      </div>
+    <% end %>
+  </div>
+</section>

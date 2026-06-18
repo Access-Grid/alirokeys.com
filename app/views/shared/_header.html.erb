@@ -1,0 +1,26 @@
+<header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
+  <div class="page flex h-16 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <%= link_to root_path, class: "flex items-center gap-2.5 text-slate-900 hover:text-slate-900" do %>
+        <%= image_tag "aliro-mark.png", alt: "Aliro Keys", class: "h-6 w-6" %>
+        <span class="font-display text-lg font-bold tracking-tight">Aliro Keys</span>
+      <% end %>
+      <%= link_to "by AccessGrid.com", "https://accessgrid.com", target: "_blank", rel: "noopener",
+            class: "hidden text-sm font-medium text-slate-400 hover:text-slate-600 sm:inline" %>
+    </div>
+
+    <nav class="flex items-center gap-1 sm:gap-2">
+      <% if @current_user_email %>
+        <%= link_to "My configs", dashboard_path, class: "btn-ghost btn-sm" %>
+        <%= link_to "Add config", new_aliro_config_path, class: "btn-primary btn-sm" %>
+        <span class="hidden items-center gap-2 pl-2 text-xs text-slate-500 sm:flex">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          <%= @current_user_email %>
+        </span>
+        <%= link_to "Sign out", root_path, class: "btn-ghost btn-sm" %>
+      <% else %>
+        <%= link_to "Add a config", new_aliro_config_path, class: "btn-primary btn-sm border border-blue-900 shadow hover:shadow-md hover:cursor-pointer" %>
+      <% end %>
+    </nav>
+  </div>
+</header>

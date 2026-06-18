@@ -1,0 +1,9 @@
+<%# locals: value, label (optional) %>
+<% label = local_assigns.fetch(:label, "Copy") %>
+<div data-controller="clipboard" data-clipboard-text-value="<%= value %>">
+  <button type="button" class="btn-secondary btn-sm" data-action="clipboard#copy">
+    <span data-clipboard-target="copyIcon" class="inline-flex"><%= copy_icon %></span>
+    <span data-clipboard-target="checkIcon" class="hidden text-emerald-600"><%= icon(:check) %></span>
+    <span data-clipboard-target="label"><%= label %></span>
+  </button>
+</div>

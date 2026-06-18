@@ -1,0 +1,30 @@
+<% content_for :title, "Retrieve a config — alirokeys" %>
+<div class="page-narrow">
+  <div class="card-pad">
+    <div class="text-center">
+      <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><%= icon(:key, classes: "h-6 w-6") %></span>
+      <h1 class="mt-4 text-2xl font-bold tracking-tight text-slate-900">Retrieve a one-time config</h1>
+      <p class="mt-2 text-sm text-slate-600">Enter the secret you were given to reveal the Aliro config.</p>
+    </div>
+
+    <div class="mt-6 flex gap-3 rounded-lg bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-inset ring-amber-600/20">
+      <span class="mt-0.5 shrink-0 text-amber-600"><%= icon(:fire, classes: "h-5 w-5") %></span>
+      <div>
+        <p class="font-semibold">This can only be opened once.</p>
+        <p class="mt-1">Unlocking immediately retrieves the config and <span class="font-semibold">permanently destroys it</span>. Make sure you can save it now — this link won’t work again.</p>
+      </div>
+    </div>
+
+    <%= form_with url: reveal_share_path(@token), method: :post, class: "mt-5 space-y-4" do %>
+      <div>
+        <%= label_tag :secret, "Secret", class: "label" %>
+        <%= password_field_tag :secret, nil, class: "input mt-1", placeholder: "the secret you received", autofocus: true %>
+      </div>
+      <%= submit_tag "Unlock & retrieve (one time)", class: "btn-primary w-full" %>
+    <% end %>
+
+    <p class="mt-4 text-center text-xs text-slate-400">
+      Preview the <%= link_to "already-used state", share_path("used"), class: "font-medium" %>.
+    </p>
+  </div>
+</div>
