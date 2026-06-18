@@ -1,7 +1,8 @@
 class DashboardController < ApplicationController
-  before_action :mock_sign_in
+  before_action :authenticate_user!
 
   def show
-    @configs = SampleData.for_user
+    # TODO Phase 3: scope to current_user.aliro_configs
+    @configs = SampleData.all
   end
 end

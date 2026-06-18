@@ -1,7 +1,8 @@
 class SharesController < ApplicationController
+  before_action :authenticate_user!, only: :create
+
   # Mint a one-time share (authed). Shows the link + one-time secret.
   def create
-    mock_sign_in
     @config = SampleData.find(params[:aliro_config_id])
     @token  = "k7Qm2xR9vL4pZ"
     @secret = "speckle-otter-marigold-49"

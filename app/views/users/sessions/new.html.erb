@@ -1,21 +1,20 @@
-<% content_for :title, "Sign in — alirokeys" %>
+<% content_for :title, "Sign in — Aliro Keys" %>
 <div class="page-narrow">
   <div class="card-pad">
     <div class="text-center">
       <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><%= icon(:key, classes: "h-6 w-6") %></span>
       <h1 class="mt-4 text-2xl font-bold tracking-tight text-slate-900">Sign in</h1>
-      <p class="mt-2 text-sm text-slate-600">
-        We’ll email you a one-time magic link. No password required.
-      </p>
+      <p class="mt-2 text-sm text-slate-600">We’ll email you a one-time magic link. No password required.</p>
     </div>
 
-    <%= form_with url: magic_link_path, method: :post, class: "mt-6 space-y-4" do %>
+    <%= form_with url: user_session_path, scope: :user, method: :post, class: "mt-6 space-y-4" do |f| %>
       <div>
-        <%= label_tag :email, "Work email", class: "label" %>
-        <%= email_field_tag :email, @email, placeholder: "you@yourcompany.com", class: "input mt-1", required: true %>
+        <%= f.label :email, "Work email", class: "label" %>
+        <%= f.email_field :email, value: params.dig(:user, :email), placeholder: "you@yourcompany.com",
+              class: "input mt-1", required: true, autofocus: true %>
         <p class="hint">Organization emails only — free-mail providers (gmail, outlook, …) aren’t accepted.</p>
       </div>
-      <%= submit_tag "Send magic link", class: "btn-primary w-full" %>
+      <%= f.submit "Send magic link", class: "btn-primary w-full" %>
     <% end %>
   </div>
 

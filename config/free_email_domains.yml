@@ -1,0 +1,33 @@
+# Free-mail / consumer email providers that may NOT be used to sign in.
+# Sign-in requires an organization email so account access tracks employment.
+# Extend this list as needed.
+- gmail.com
+- googlemail.com
+- yahoo.com
+- ymail.com
+- rocketmail.com
+- outlook.com
+- hotmail.com
+- live.com
+- msn.com
+- aol.com
+- icloud.com
+- me.com
+- mac.com
+- proton.me
+- protonmail.com
+- pm.me
+- gmx.com
+- gmx.net
+- mail.com
+- yandex.com
+- yandex.ru
+- zoho.com
+- fastmail.com
+- hey.com
+- tutanota.com
+- tuta.io
+- hushmail.com
+- inbox.com
+- mailinator.com
+- example.com

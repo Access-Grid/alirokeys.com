@@ -1,21 +1,20 @@
-<% content_for :title, "Check your email — alirokeys" %>
+<% content_for :title, "Check your email — Aliro Keys" %>
 <div class="page-narrow">
   <div class="card-pad text-center">
     <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600"><%= icon(:mail, classes: "h-6 w-6") %></span>
     <h1 class="mt-4 text-2xl font-bold tracking-tight text-slate-900">Check your email</h1>
     <p class="mt-2 text-sm text-slate-600">
       If <span class="font-semibold text-slate-900"><%= @email.presence || "your address" %></span>
-      is a valid organization email, a magic link is on its way. It expires shortly.
+      is a valid organization email, a one-time login link is on its way. It expires in 20 minutes.
     </p>
 
     <div class="mt-6 rounded-lg bg-slate-50 p-4 text-left text-xs text-slate-500 ring-1 ring-inset ring-slate-200">
-      <span class="font-semibold text-slate-700">Prototype note:</span>
-      no email is actually sent. In the real build this links to the magic-link mailer.
+      <span class="font-semibold text-slate-700">Development:</span>
+      the email opens automatically in a new tab (letter_opener). Click the link inside it to sign in.
     </div>
 
-    <div class="mt-6 flex justify-center gap-2">
-      <%= link_to "Use a different email", sign_in_path, class: "btn-secondary btn-sm" %>
-      <%= link_to "Continue to dashboard →", dashboard_path, class: "btn-primary btn-sm" %>
+    <div class="mt-6">
+      <%= link_to "Use a different email", new_user_session_path, class: "btn-secondary btn-sm" %>
     </div>
   </div>
 </div>

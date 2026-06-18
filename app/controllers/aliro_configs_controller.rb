@@ -1,5 +1,5 @@
 class AliroConfigsController < ApplicationController
-  before_action :mock_sign_in
+  before_action :authenticate_user!
 
   def new
     # Add ?errors=1 to preview the validation-error state of the form.

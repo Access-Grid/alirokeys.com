@@ -1,0 +1,6 @@
+# Passwordless users — only an email column exists.
+alice:
+  email: alice@acme.dev
+
+bob:
+  email: bob@globex.dev
