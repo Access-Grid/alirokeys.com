@@ -26,7 +26,8 @@
             <%= link_to "View", sample_config_path(config.domain_name, config), class: "btn-ghost btn-sm" %>
           <% end %>
           <%= link_to "Edit", edit_aliro_config_path(config), class: "btn-ghost btn-sm" %>
-          <%= button_to "Share", aliro_config_share_path(config), class: "btn-secondary btn-sm" %>
+          <%= button_to "Share", aliro_config_share_path(config), class: "btn-secondary btn-sm",
+                form: { data: { turbo: false } } %>
           <%= button_to "Delete", aliro_config_path(config), method: :delete, class: "btn-danger btn-sm",
                 form: { data: { turbo_confirm: "Delete “#{config.name}”? This cannot be undone." } } %>
         </div>
