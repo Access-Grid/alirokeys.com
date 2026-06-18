@@ -1,9 +1,14 @@
 <% content_for :title, "#{@domain} — Aliro Keys" %>
 <div class="page">
-  <header class="border-b border-slate-200 pb-6">
-    <p class="text-sm font-medium text-slate-500">Domain profile</p>
-    <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900"><%= @domain %></h1>
-    <p class="mt-2 text-sm text-slate-500"><%= pluralize(@configs.size, "public sample config") %></p>
+  <header class="flex flex-wrap items-end justify-between gap-3 border-b border-slate-200 pb-6">
+    <div>
+      <p class="text-sm font-medium text-slate-500">Domain profile</p>
+      <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900"><%= @domain %></h1>
+      <p class="mt-2 text-sm text-slate-500"><%= pluralize(@configs.size, "public sample config") %></p>
+    </div>
+    <%= link_to domain_aliro_path(@domain), class: "btn-secondary btn-sm" do %>
+      <%= icon(:download) %> JSON API
+    <% end %>
   </header>
 
   <% if @configs.any? %>
