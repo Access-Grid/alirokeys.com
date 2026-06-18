@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_18_044801) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_18_044802) do
   create_table "aliro_configs", force: :cascade do |t|
     t.integer "domain_id", null: false
     t.integer "created_by_id", null: false
@@ -33,6 +33,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_044801) do
     t.index ["name"], name: "index_domains_on_name", unique: true
   end
 
+  create_table "one_time_shares", force: :cascade do |t|
+    t.string "token", null: false
+    t.integer "aliro_config_id"
+    t.string "secret_digest", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "retrieved_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aliro_config_id"], name: "index_one_time_shares_on_aliro_config_id"
+    t.index ["token"], name: "index_one_time_shares_on_token", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.datetime "created_at", null: false
@@ -42,4 +54,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_044801) do
 
   add_foreign_key "aliro_configs", "domains"
   add_foreign_key "aliro_configs", "users", column: "created_by_id"
+  add_foreign_key "one_time_shares", "aliro_configs", on_delete: :nullify
 end
