@@ -11,6 +11,7 @@ module SampleData
   ) do
     def cert? = reader_certificate.present?
     def to_param = id.to_s
+    def domain_name = domain
   end
 
   MOCK_USER = "ab@allegion.com".freeze

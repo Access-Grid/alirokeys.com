@@ -1,40 +1,43 @@
-<%# locals: url, method, config, submit_label, show_errors %>
-<% config ||= nil %>
-<% show_errors = local_assigns.fetch(:show_errors, false) %>
-
-<%= form_with url: url, method: method, scope: :aliro_config, class: "space-y-6" do |f| %>
-  <% if show_errors %>
+<%# locals: config (an AliroConfig) %>
+<%= form_with model: config, class: "space-y-6" do |f| %>
+  <% if config.errors.any? %>
     <div class="rounded-lg bg-red-50 p-4 text-sm text-red-800 ring-1 ring-inset ring-red-600/20">
-      <p class="font-semibold">Couldn’t save this config</p>
-      <p class="mt-1">Fix the highlighted field below, then try again.</p>
+      <p class="font-semibold"><%= pluralize(config.errors.count, "error") %> stopped this from saving</p>
+      <ul class="mt-1 list-disc pl-5">
+        <% config.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+      </ul>
     </div>
   <% end %>
 
   <div>
     <%= f.label :name, "Name", class: "label" %>
-    <%= f.text_field :name, value: config&.name, class: "input mt-1", placeholder: "Front Door Reader" %>
+    <%= f.text_field :name, class: "input mt-1", placeholder: "Front Door Reader" %>
   </div>
 
   <div>
-    <%= f.label :domain, "Domain", class: "label" %>
-    <%= f.text_field :domain, value: config&.domain, class: "input mt-1", placeholder: "allegion.com" %>
-    <p class="hint">Where this config is published. Use a domain you can receive email at.</p>
+    <%= f.label :domain_name, "Domain", class: "label" %>
+    <%= f.text_field :domain_name, value: config.domain_name, class: "input mt-1", placeholder: "allegion.com" %>
+    <p class="hint">Where this config is published, e.g. <code>allegion.com</code>.</p>
   </div>
 
   <div>
     <%= f.label :reader_group_id, "Reader group ID", class: "label" %>
-    <%= f.text_field :reader_group_id, value: config&.reader_group_id, class: "input-mono mt-1",
+    <%= f.text_field :reader_group_id, class: "input-mono mt-1 #{'input-error' if config.errors[:reader_group_id].any?}",
           placeholder: "16 bytes — hex or base64" %>
-    <p class="hint">16 bytes. Hex (32 chars) or base64. e.g. <code>17cb8ab0dcd640f3a03cfa2aae7a5775</code></p>
+    <% if config.errors[:reader_group_id].any? %>
+      <p class="field-error"><%= config.errors[:reader_group_id].first %></p>
+    <% else %>
+      <p class="hint">16 bytes. Hex (32 chars) or base64. e.g. <code>17cb8ab0dcd640f3a03cfa2aae7a5775</code></p>
+    <% end %>
   </div>
 
   <div>
     <%= f.label :reader_public_key, "Reader public key", class: "label" %>
-    <%= f.text_area :reader_public_key, value: config&.reader_public_key, rows: 3,
-          class: "input-mono mt-1 #{'input-error' if show_errors}",
+    <%= f.text_area :reader_public_key, rows: 3,
+          class: "input-mono mt-1 #{'input-error' if config.errors[:reader_public_key].any?}",
           placeholder: "65 bytes — uncompressed P-256, starts with 04" %>
-    <% if show_errors %>
-      <p class="field-error">Not a valid P-256 public key — the point isn’t on the curve.</p>
+    <% if config.errors[:reader_public_key].any? %>
+      <p class="field-error"><%= config.errors[:reader_public_key].first %></p>
     <% else %>
       <p class="hint">65 bytes, uncompressed (starts with <code>04</code>). Hex (130 chars) or base64. Validated on-curve.</p>
     <% end %>
@@ -43,19 +46,23 @@
   <div>
     <%= f.label :reader_certificate, "Reader certificate", class: "label" %>
     <span class="text-xs text-slate-400">— optional</span>
-    <%= f.text_area :reader_certificate, value: config&.reader_certificate, rows: 3, class: "input-mono mt-1",
-          placeholder: "Aliro compressed reader certificate (hex or base64)" %>
-    <p class="hint">If present, its embedded public key must match the reader public key.</p>
+    <%= f.text_area :reader_certificate, rows: 3,
+          class: "input-mono mt-1 #{'input-error' if config.errors[:reader_certificate].any?}",
+          placeholder: "Aliro reader certificate (hex or base64)" %>
+    <% if config.errors[:reader_certificate].any? %>
+      <p class="field-error"><%= config.errors[:reader_certificate].first %></p>
+    <% else %>
+      <p class="hint">If present, its embedded public key must match the reader public key.</p>
+    <% end %>
   </div>
 
   <label class="flex items-center gap-3">
-    <%= f.check_box :is_sample, checked: (config ? config.is_sample : true),
-          class: "h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" %>
+    <%= f.check_box :is_sample, class: "h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" %>
     <span class="text-sm text-slate-700">List publicly as a <span class="font-medium">sample</span> on the domain profile</span>
   </label>
 
   <div class="flex items-center gap-3 border-t border-slate-100 pt-5">
-    <%= f.submit submit_label, class: "btn-primary" %>
+    <%= f.submit (config.persisted? ? "Save changes" : "Create config"), class: "btn-primary" %>
     <%= link_to "Cancel", dashboard_path, class: "btn-ghost" %>
   </div>
 <% end %>

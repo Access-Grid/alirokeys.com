@@ -1,8 +1,8 @@
-<% content_for :title, "#{@config.name} · #{@config.domain} — alirokeys" %>
+<% content_for :title, "#{@config.name} · #{@config.domain_name} — alirokeys" %>
 <div class="page">
   <div class="mx-auto max-w-3xl">
     <nav class="flex items-center gap-2 text-sm text-slate-500">
-      <%= link_to @config.domain, domain_profile_path(@config.domain), class: "font-medium" %>
+      <%= link_to @config.domain_name, domain_profile_path(@config.domain_name), class: "font-medium" %>
       <span class="text-slate-300">/</span>
       <span class="text-slate-700"><%= @config.name %></span>
     </nav>

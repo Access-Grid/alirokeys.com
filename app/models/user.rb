@@ -8,6 +8,8 @@ class User < ApplicationRecord
                     format: { with: URI::MailTo::EMAIL_REGEXP, message: "is not a valid email address" }
   validate :email_must_be_organizational
 
+  has_many :aliro_configs, foreign_key: :created_by_id, dependent: :destroy, inverse_of: :created_by
+
   def email_domain
     email.to_s.split("@").last
   end

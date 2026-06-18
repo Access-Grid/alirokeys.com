@@ -18,7 +18,7 @@
     <div data-tabs-target="panel" <%= "hidden" if i.positive? %>>
       <div class="mb-2 flex justify-end gap-2">
         <%= render "shared/copy_button", value: code %>
-        <%= link_to config_export_path(config.domain, config, format: lang[:ext]), class: "btn-secondary btn-sm" do %>
+        <%= link_to config_export_path(config.domain_name, config, format: lang[:ext]), class: "btn-secondary btn-sm" do %>
           <%= download_icon %> .<%= lang[:ext] %>
         <% end %>
       </div>

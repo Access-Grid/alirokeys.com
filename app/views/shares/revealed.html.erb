@@ -6,7 +6,7 @@
     </div>
 
     <h1 class="text-2xl font-bold tracking-tight text-slate-900"><%= @config.name %></h1>
-    <p class="mt-1 text-sm text-slate-500"><%= @config.domain %></p>
+    <p class="mt-1 text-sm text-slate-500"><%= @config.domain_name %></p>
 
     <div class="mt-6 space-y-4">
       <%= render "configs/key_field", field: "Reader group ID", hex: @config.reader_group_id %>

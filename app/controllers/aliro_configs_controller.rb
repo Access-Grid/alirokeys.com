@@ -1,24 +1,45 @@
 class AliroConfigsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_config, only: %i[edit update destroy]
 
   def new
-    # Add ?errors=1 to preview the validation-error state of the form.
-    @show_errors = params[:errors].present?
+    @config = current_user.aliro_configs.new(is_sample: true)
   end
 
   def create
-    redirect_to dashboard_path, notice: "Config created (mock)."
+    @config = current_user.aliro_configs.new(config_params)
+    if @config.save
+      redirect_to dashboard_path, notice: "Config “#{@config.name}” created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
-  def edit
-    @config = SampleData.find(params[:id])
-  end
+  def edit; end
 
   def update
-    redirect_to dashboard_path, notice: "Config updated (mock)."
+    if @config.update(config_params)
+      redirect_to dashboard_path, notice: "Config “#{@config.name}” updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    redirect_to dashboard_path, notice: "Config deleted (mock)."
+    @config.destroy
+    redirect_to dashboard_path, notice: "Config deleted."
+  end
+
+  private
+
+  # Creator-scoped: other users' configs are simply not found (404).
+  def set_config
+    @config = current_user.aliro_configs.find(params[:id])
+  end
+
+  def config_params
+    params.require(:aliro_config).permit(
+      :name, :domain_name, :reader_group_id, :reader_public_key, :reader_certificate, :is_sample
+    )
   end
 end

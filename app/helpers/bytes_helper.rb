@@ -59,8 +59,8 @@ module BytesHelper
   def java_array(bytes) = "{ #{byte_list(bytes, prefix: "(byte)0x")} }"
 
   def header_lines(config)
-    ["alirokeys — #{config.name} (#{config.domain})",
-     "https://alirokeys.com/#{config.domain}/configs/samples/#{config.id}",
+    ["alirokeys — #{config.name} (#{config.domain_name})",
+     "https://alirokeys.com/#{config.domain_name}/configs/samples/#{config.id}",
      "Generated sample — do not use in production."]
   end
 
@@ -71,7 +71,7 @@ module BytesHelper
   def export_json(config)
     require "json"
     data = {
-      name: config.name, domain: config.domain,
+      name: config.name, domain: config.domain_name,
       reader_group_id: config.reader_group_id,
       reader_group_id_base64: Base64.strict_encode64(hex_to_bytes(config.reader_group_id)),
       reader_public_key: config.reader_public_key,

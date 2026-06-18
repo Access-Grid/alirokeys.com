@@ -10,11 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_18_044740) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_18_044801) do
+  create_table "aliro_configs", force: :cascade do |t|
+    t.integer "domain_id", null: false
+    t.integer "created_by_id", null: false
+    t.string "name", null: false
+    t.string "reader_group_id", null: false
+    t.string "reader_public_key", null: false
+    t.string "reader_certificate"
+    t.boolean "is_sample", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_aliro_configs_on_created_by_id"
+    t.index ["domain_id", "is_sample"], name: "index_aliro_configs_on_domain_id_and_is_sample"
+    t.index ["domain_id"], name: "index_aliro_configs_on_domain_id"
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_domains_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  add_foreign_key "aliro_configs", "domains"
+  add_foreign_key "aliro_configs", "users", column: "created_by_id"
 end

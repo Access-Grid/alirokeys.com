@@ -1,10 +1,9 @@
-<% content_for :title, "Edit config — alirokeys" %>
+<% content_for :title, "Edit config — Aliro Keys" %>
 <div class="page-narrow">
   <h1 class="text-2xl font-bold tracking-tight text-slate-900">Edit config</h1>
-  <p class="mt-1 text-sm text-slate-500"><%= @config&.name %></p>
+  <p class="mt-1 text-sm text-slate-500"><%= @config.name %></p>
 
   <div class="card-pad mt-6">
-    <%= render "form", url: aliro_config_path(@config), method: :patch, config: @config,
-          submit_label: "Save changes" %>
+    <%= render "form", config: @config %>
   </div>
 </div>
