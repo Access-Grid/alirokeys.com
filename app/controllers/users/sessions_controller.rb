@@ -2,6 +2,8 @@ module Users
   # Passwordless magic-link sign-in. Auto-provisions a user for any valid
   # organization email, then emails a one-time login link.
   class SessionsController < Devise::Passwordless::SessionsController
+    rate_limit to: 5, within: 1.minute, only: :create
+
     def new
       self.resource = User.new
       super

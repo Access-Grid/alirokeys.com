@@ -1,6 +1,8 @@
 # alirokeys.com — Full Dev Plan (front-end-first)
 
-> Status: **awaiting go on Phase 0.** This is the agreed reference plan. Update it as decisions change.
+> Status: **Phases 0–7 complete.** Production-quality UI, passwordless auth, models +
+> validation core, live registry + JSON API, and one-time burn-on-read shares are all
+> shipped with tests green and a clean Brakeman scan. This remains the reference plan.
 
 ## 1. Concept
 A web app to **publish, discover, and securely hand off Aliro reader configurations**. An
