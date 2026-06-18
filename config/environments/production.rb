@@ -46,19 +46,16 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # Single Postgres database on Heroku — run cache/jobs/cable in-process rather
+  # than via the Solid trifecta's separate databases.
+  config.cache_store = :memory_store
+  config.active_job.queue_adapter = :async
 
-  # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  # Don't let a missing SMTP config raise on web requests; mail is sent async.
+  config.action_mailer.raise_delivery_errors = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # Host used by links generated in mailer templates (magic links).
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "aliro-keys.herokuapp.com") }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
