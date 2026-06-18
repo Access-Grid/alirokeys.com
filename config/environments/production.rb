@@ -51,11 +51,16 @@ Rails.application.configure do
   config.cache_store = :memory_store
   config.active_job.queue_adapter = :async
 
-  # Don't let a missing SMTP config raise on web requests; mail is sent async.
+  # Mail is delivered async; don't raise on web requests if delivery fails.
   config.action_mailer.raise_delivery_errors = false
 
   # Host used by links generated in mailer templates (magic links).
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "aliro-keys.herokuapp.com") }
+
+  # Deliver transactional email (magic links) via Postmark.
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
+  config.action_mailer.perform_deliveries = true
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {

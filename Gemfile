@@ -24,6 +24,9 @@ gem "bcrypt", "~> 3.1.7"
 gem "devise"
 gem "devise-passwordless"
 
+# Transactional email (production magic links)
+gem "postmark-rails"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
